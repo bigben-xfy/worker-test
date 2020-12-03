@@ -1,10 +1,26 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <div>123</div>
+  </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+<script>
+import Worker from './file.worker.js'
+// import Worker from 'worker-loader!./file.worker.js'
 
-@Component
-export default class Home extends Vue {}
+export default {
+  name: "Home",
+  mounted(){
+    console.log('init')
+
+    const worker = new Worker()
+    worker.postMessage({ a: 1 })
+    worker.onmessage = event => {
+      console.log('home', event)
+    }
+  },
+  methods: {
+    
+  }
+};
 </script>
